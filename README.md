@@ -1,1 +1,1 @@
-My solutions to the exercises from the University of Helsinki's *Full Stack Open* course.
+My solutions to the exercises from the *2020 Full Stack Open* course.
