@@ -15,7 +15,6 @@ const Part = (props) => {
   );
 }
 
-
 const Content = (props) => {
   console.log(props);
   return(
@@ -23,7 +22,6 @@ const Content = (props) => {
       <Part title={props.part1} numberOfExercises={props.exercises1} />
       <Part title={props.part2} numberOfExercises={props.exercises2} />
       <Part title={props.part3} numberOfExercises={props.exercises3} />
-
     </>
   );
 }
