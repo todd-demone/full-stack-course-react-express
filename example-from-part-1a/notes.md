@@ -33,7 +33,7 @@ argument 2 - tells it where in DOM to render that component
 * e.g., `const name="Peter"; return (<Hello name={name}>)`
 
 
-# JavaScript section
+# Part 1b - JavaScript section
 
 const - can't change value unless variable is pointing to an object (eg array), then can change individual values of object
 let
@@ -83,3 +83,65 @@ object1['secret number'] = 12341
 arrow functions
 - can cut corners on parentheses if single parameter
 - can remove curly braces and return statement if just single expression
+
+### Object methods and `this`
+* React hooks method - no need for defining objects with methods
+
+arrow functions
+vs
+functions defined with `function` keyword
+
+* main difference is how they view `this` keyword, ie who `this` is
+
+#### Regular FUNCTIONS
+```
+const arto = {
+    name: 'Arto Hellas',
+    greet: function() { console.log('hello my name is ' + this.name)},
+}
+arto.greet() // 'hello my name is Arto Hellas
+
+referenceToGreet = arto.greet
+
+referenceToGreet() // 'hello my name is undefined'
+```
+* reference to this in referenceToGreet call is `global object`
+
+``` 
+setTimeout(arto.greet, 1000) // since `setTimeout` is calling, this == global object
+```
+
+better:
+```
+setTimeout(arto.greet.bind(arto), 1000)
+```
+
+#### Arrow FUNCTIONS
+
+* don't use arrow methods for objects because `this` doesn't work at all
+
+### Classes
+* React hooks method - no need for JS class syntax
+
+```
+class Person {
+    constructor(name, age) {
+        this.name = name
+        this.age = age
+    }
+    greet() {
+        console.log('hello, my name is ' + this.name)
+    }
+}
+
+const adam = new Person('Adam Ondra', 35)
+adam.greet()
+
+const janja = new Person('Janja Garnbret', 22)
+janja.greet()
+```
+# 1c - Component state, event handlers
+
+
+
+
