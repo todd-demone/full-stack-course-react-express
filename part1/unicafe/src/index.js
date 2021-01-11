@@ -7,8 +7,8 @@ const Button = ({handleClick, text}) => (
   </button>
 )
 
-const Display = ({text, value}) => (
-  <p>{text} {value}</p>
+const Display = ({text, value, unit=''}) => (
+  <span>{text} {value} {unit}<br /></span>
 )
 
 const App = () => {
@@ -26,6 +26,9 @@ const App = () => {
       <Display text="good" value={good} />
       <Display text="neutral" value={neutral} />
       <Display text="bad" value={bad} />
+      <Display text="all" value={good + neutral + bad} />
+      <Display text="average" value={(good - bad) / (good + neutral + bad)} />
+      <Display text="positive" value={100 * (good / (good + neutral + bad))} unit="%" />
     </div>
   )
 }
