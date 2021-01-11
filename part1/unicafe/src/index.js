@@ -8,7 +8,10 @@ const Button = ({handleClick, text}) => (
 )
 
 const Statistic = ({text, value, unit=''}) => (
-  <span>{text} {value} {unit}<br /></span>
+  <tr>
+    <td>{text}</td>
+    <td>{value} {unit}</td>
+  </tr>
 )
 
 const Statistics = (props) => {
@@ -24,13 +27,17 @@ const Statistics = (props) => {
   
   return (
   <div>
-     <h2>statistics</h2>
-     <Statistic text={good.text} value={good.value} />
-    <Statistic text={neutral.text} value={neutral.value} />
-    <Statistic text={bad.text} value={bad.value} />
-    <Statistic text={all.text} value={all.value} />
-    <Statistic text={average.text} value={average.value} />
-    <Statistic text={positive.text} value={positive.value} unit="%" />
+    <h2>statistics</h2>
+      <table>
+        <tbody>     
+          <Statistic text={good.text} value={good.value} />
+          <Statistic text={neutral.text} value={neutral.value} />
+          <Statistic text={bad.text} value={bad.value} />
+          <Statistic text={all.text} value={all.value} />
+          <Statistic text={average.text} value={average.value} />
+          <Statistic text={positive.text} value={positive.value} unit="%" />
+        </tbody>
+      </table>
   </div>
   )
 }
