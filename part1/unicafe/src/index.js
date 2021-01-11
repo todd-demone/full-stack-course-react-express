@@ -13,9 +13,19 @@ const Display = ({text, value, unit=''}) => (
 
 const Statistics = (props) => {
   const [ good, neutral, bad, all, average, positive ]  = props.stats
+  if (all.value === 0) {
+    return (
+      <>
+        <h2>statistics</h2>
+        <p>No feedback given</p>
+      </>
+    )
+  }
+  
   return (
   <div>
-    <Display text={good.text} value={good.value} />
+     <h2>statistics</h2>
+     <Display text={good.text} value={good.value} />
     <Display text={neutral.text} value={neutral.value} />
     <Display text={bad.text} value={bad.value} />
     <Display text={all.text} value={all.value} />
@@ -62,7 +72,7 @@ const App = () => {
       <Button handleClick={() => setGood(good + 1)} text="good" />
       <Button handleClick={() => setNeutral(neutral + 1)} text="neutral" />
       <Button handleClick={() => setBad(bad + 1)} text="bad" />
-      <h2>statistics</h2>
+     
       <Statistics stats={stats} />
     </div>
   )
