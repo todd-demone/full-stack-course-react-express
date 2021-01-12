@@ -6,18 +6,18 @@ const Button = ({fxn, text}) => (
 )
 
 const TopAnecdote = ({anecdotes, points}) => {
-  // returns index of anecdote with most votes
-  let most = 0
+  // helper function
   const findTopAnecdote = () => {
+    let most = 0
     for (let i = 1; i < points.length; i++) {
       if (points[most] < points[i]) {
         most = i
       }
     }
+    return most
   }
-  findTopAnecdote()
   return (
-    <span>{anecdotes[most]}</span>
+    <span>{anecdotes[findTopAnecdote()]}</span>
   )
 }
 
