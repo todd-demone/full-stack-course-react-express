@@ -35,9 +35,6 @@ const App = (props) => {
     setSelected(Math.floor(Math.random() * props.anecdotes.length))   
   }
 
-  console.log(selected)
-  console.log(points)
- 
   return (
     <div>
       <h1>Anecdote of the day</h1>
