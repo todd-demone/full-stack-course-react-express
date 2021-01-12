@@ -243,11 +243,83 @@ const Hello = ({name, age}) => {
 * better to use *object spread syntax*
 * ie 
 ```
-const newClicks = {
-    ...clicks,
-    left: clicks.left + 1
+const handleLeftClick = () => {
+    const newClicks = {
+        ...clicks,
+        left: clicks.left + 1
+    }
+    setClicks(newClicks)
 }
 ```
+
+* in react you need to create an entirely new object to return from event handler; you can't just do this
+```
+const handleLeftClick = () => {
+    clicks.left++
+    setClicks(clicks)
+}
+```
+
+* react doesn't allow you to mutate state
+* always change state by creating a new object
+
+* sometimes good to store all state in single object
+* other times it creates unnecessary complexity - ie store separate pieces of state in separate variables
+
+## Handling arrays
+use `concat` method to add items to array, not `push`
+`concat` creates a new array, t/f consistent with react philosophy of no mutations of state
+`push` will work, but don't do this - hard to debug
+
+## Conditional rendering
+* use `if` statement within component to change rendering depending on state of application
+
+## Old React
+
+## Debugging REact applications
+
+keep browser console open at all times
+
+keep code and browser open at same time
+
+if bug, fix it before moving forward
+
+option 1 - use console.log() to debug
+
+add `console.log(props)` to second line after function (component) signature
+console.log - dont use `+` symbol to concatenate, use `,` instead - makes object available for inspection
+
+option 2 - write `debugger` command in your code
+
+then when program has stopped, use Chrome console to check current state of all variables
+
+option 3 - set breakpoints in Sources tab of CDT; then check value of variables in Scope section
+
+option 4 - React developer tools - Components tab in CDT
+
+## Rules of Hooks
+
+- can't call `useState` or `useEffect` inside loop, conditional (eg if statement) or any place that is not a function defining a component
+
+## Event handling revisited
+
+* event handlers must be a function or a reference to a function
+* can't be a function call (because event handler is assigned returned value of fxn eg undefined)
+* EXCEPTION to above - when the function that is called returns another function
+* can't be a string, a number, a variable assignment or an expression to be evaluated
+* by using a function, the function is not executed during render; it is only executed on the event happening (eg button is clicked)
+
+## Function that returns a function
+
+* you can call a function in the event handler attribute (e.g. `onClick={hello()}`) if the function returns a function
+* why do this? - because you can call a function with specific parameters and return a function that includes those parameters
+* in other words, you can define a function that has generic functionality and can be customized with parameters
+* a 'factory function'
+
+## Passing Event Handlers to Child Components
+
+## Do not define components within components
+
 
 
 
