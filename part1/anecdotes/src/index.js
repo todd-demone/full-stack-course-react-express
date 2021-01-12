@@ -22,9 +22,9 @@ const TopAnecdote = ({anecdotes, points}) => {
 }
 
 const App = (props) => {
-  const [ selected, setSelected ] = useState(0)
   const [ points, setPoints ] = useState(Array.apply(null, new Array(props.anecdotes.length)).map(Number.prototype.valueOf,0))
-  
+  const [ selected, setSelected ] = useState(0)
+
   const placeVote = () => { 
     const copy = [...points]
     copy[selected] += 1
@@ -37,11 +37,11 @@ const App = (props) => {
 
   console.log(selected)
   console.log(points)
-
+ 
   return (
     <div>
       <h1>Anecdote of the day</h1>
-      <span>{props.anecdotes[selected]}</span><br />
+      <span>{props.anecdotes[selected]}</span><br /> 
       <span>has {points[selected]} votes</span><br />
       <Button fxn={placeVote} text="vote" />
       <Button fxn={chooseNextAnecdote} text="next anecdote" />
