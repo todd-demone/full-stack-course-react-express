@@ -5,45 +5,44 @@ const Button = ({fxn, text}) => (
     <button onClick={fxn}>{text}</button>
 )
 
-const TopAnecdote = ({anecdotes, points}) => {
-  // helper function
-  const findTopAnecdote = () => {
-    let most = 0
-    for (let i = 1; i < points.length; i++) {
-      if (points[most] < points[i]) {
-        most = i
-      }
-    }
-    return most
-  }
+const Anecdote = ({anecdote, votes}) => {
   return (
-    <span>{anecdotes[findTopAnecdote()]}</span>
+    <div>
+      <div>{anecdote}</div>
+      <div>has {votes} votes</div>
+    </div>
   )
 }
 
 const App = (props) => {
-  const [ points, setPoints ] = useState(Array.apply(null, new Array(props.anecdotes.length)).map(Number.prototype.valueOf,0))
+  const [ votes, setVotes ] = useState(Array.apply(null, new Array(props.anecdotes.length)).map(Number.prototype.valueOf,0))
   const [ selected, setSelected ] = useState(0)
+  const [ mostVotes, setMostVotes ] = useState(0)
 
   const placeVote = () => { 
-    const copy = [...points]
+    const copy = [...votes]
     copy[selected] += 1
-    setPoints(copy)
+    setVotes(copy)
+    if (votes[selected] + 1 > votes[mostVotes]) {
+      setMostVotes(selected)
+    }
   } 
 
   const chooseNextAnecdote = () => {
     setSelected(Math.floor(Math.random() * props.anecdotes.length))   
   }
 
+  console.log(selected)
+  console.log(votes)
+  
   return (
     <div>
       <h1>Anecdote of the day</h1>
-      <span>{props.anecdotes[selected]}</span><br /> 
-      <span>has {points[selected]} votes</span><br />
+      <Anecdote anecdote={props.anecdotes[selected]} votes={votes[selected]} />
       <Button fxn={placeVote} text="vote" />
       <Button fxn={chooseNextAnecdote} text="next anecdote" />
       <h2>Anecdote with most votes</h2>
-      <TopAnecdote anecdotes={props.anecdotes} points={points}  />
+      <Anecdote anecdote={props.anecdotes[mostVotes]} votes={votes[mostVotes]}  />
     </div>
   )
 }
