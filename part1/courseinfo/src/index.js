@@ -5,7 +5,7 @@ const Course = ({ course }) => (
   <div>
     <Header course={course} />
     <Content course ={course} />
-    <Total course={course}/>
+    <Total parts={course.parts}/>
   </div>
 )
 
@@ -15,12 +15,19 @@ const Header = ({ course }) => {
   )
 }
 
-const Total = ({ course }) => {
-  const sum = course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises + course.parts[3].exercises
-  return(
-    <p><strong>Total of {sum} exercises </strong></p>
+const Total = ({ parts }) => {
+  const total = parts.reduce( (sum, part) => {
+    return sum + part.exercises
+  }, 0)
+  return (
+    <p><strong>Total of {total} exercises </strong></p>
   ) 
 }
+
+/* 
+arr.reduce(function( accumulator, currentValue) {
+  return accumulator + currentValue
+, 0}*/
 
 const Part = ({ part }) => {
   return (
@@ -64,6 +71,11 @@ const App = () => {
         name: 'Redux',
         exercises: 11,
         id: 4
+      },
+      {
+        name: 'Adobe Flash',
+        exercises: 99,
+        id: 5
       }
     ]
   }
