@@ -19,9 +19,13 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
-  const handleSearchQuery = (event) => {
+  const handleSearchChange = (event) => {
     setNewSearch(event.target.value)
   }
+
+  const personsToSearch = !newSearch
+    ? persons
+    : persons.filter( (person) => person.name.toLowerCase().includes(newSearch.toLowerCase()))
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -38,12 +42,13 @@ const App = () => {
     }
   }
 
+  console.log('personsToSearch', personsToSearch);
   return (
     <div>
       <h2>Phonebook</h2>
       filter shown with <input 
                           value={newSearch}
-                          onChange={handleSearchQuery}
+                          onChange={handleSearchChange}
                         />
       <h2>add a new</h2>
       <form onSubmit={addPerson}>
@@ -65,7 +70,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map((person, index) => 
+        {personsToSearch.map((person, index) => 
           <p key={person.name}>{person.name} {person.number}</p>
         )}
       </div>
