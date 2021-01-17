@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Filter = (props) => {
   return (
@@ -55,6 +56,16 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
 
+  const hook = () =>
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => 
+        setPersons(response.data)
+      )
+
+
+  useEffect(hook, [])
+
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
@@ -86,7 +97,7 @@ const App = () => {
     }
   }
 
-  console.log('personsToSearch: ', personsToSearch);
+  // console.log('personsToSearch: ', personsToSearch);
   return (
     <div>
       <h2>Phonebook</h2>
