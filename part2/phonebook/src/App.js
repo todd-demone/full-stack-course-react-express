@@ -1,86 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import Filter from './components/Filter'
 import noteService from './services/persons'
-
-const Filter = (props) => {
-  return (
-    <div>
-      filter shown with <input 
-                          value={props.newSearch}
-                          onChange={props.handleSearchChange}
-                        />
-    </div>
-  )
-}
-
-const PersonForm = (props) => {
-  return(
-    <form onSubmit={props.addPerson}>
-        <div>
-          name: <input 
-                  value={props.newName} 
-                  onChange={props.handleNameChange} 
-                />
-        </div>
-        <div>
-          number: <input
-                    value={props.newNumber}
-                    onChange={props.handleNumberChange}
-                  />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-  )
-}
-
-const Persons = (props) => {
-  return (
-    <div>
-        {props.personsToSearch.map((person, index) => 
-          <Person key={index} person={person} /> 
-        )}
-      </div>
-  )
-}
-
-const Person = ({person}) => {
-  return (
-    <p key={person.name}>{person.name} {person.number}</p>
-  )
-}
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
+  // State
   const [persons, setPersons] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
 
-  const hook = () =>
-    noteService
-      .getAll()
-        .then(initialPersons => 
-          setPersons(initialPersons)
-        )
-
-  useEffect(hook, [])
-
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
-
-  const handleSearchChange = (event) => {
-    setNewSearch(event.target.value)
-  }
-
-  const personsToSearch = !newSearch
-    ? persons
-    : persons.filter( (person) => person.name.toLowerCase().includes(newSearch.toLowerCase()))
-
+  // Functions
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = { 
@@ -100,7 +32,47 @@ const App = () => {
     }
   }
 
-  // console.log('personsToSearch: ', personsToSearch);
+  const hook = () => {
+    noteService
+      .getAll()
+        .then(initialPersons => 
+          setPersons(initialPersons)
+        )
+  }
+  
+  useEffect(hook, [])
+
+  const personsToSearch = !newSearch
+    ? persons
+    : persons.filter( (person) => person.name.toLowerCase().includes(newSearch.toLowerCase()))
+
+  // Event Handlers
+  const handleDeleteRequest = (personToDelete) => {
+    const message = `Delete ${personToDelete.name}?`
+    const confirmedDelete = window.confirm(message)
+    if(confirmedDelete) {
+      noteService.
+        deletePerson(personToDelete.id)
+        .then(response => {
+          const revisedPersons = persons.filter( person => person.id !== personToDelete.id )
+          setPersons(revisedPersons)
+        })
+    }
+  }
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
+  const handleSearchChange = (event) => {
+    setNewSearch(event.target.value)
+  }
+
+  // JSX
   return (
     <div>
       <h2>Phonebook</h2>
@@ -108,9 +80,10 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} />
       <h3>Numbers</h3>
-      <Persons personsToSearch={personsToSearch} />
+      <Persons personsToSearch={personsToSearch} handleDeleteRequest={handleDeleteRequest} />
     </div>
   )
+
 }
 
 export default App;
