@@ -63,7 +63,6 @@ const App = () => {
         setPersons(response.data)
       )
 
-
   useEffect(hook, [])
 
   const handleNameChange = (event) => {
@@ -87,13 +86,18 @@ const App = () => {
     const personObject = { 
       name: newName,
       number: newNumber
-    };
+    }
     if (persons.filter(person => person.name === newName).length > 0) {
       alert(`${newName} is already added to phonebook`)
     } else {
-      setPersons(persons.concat(personObject))
-      setNewNumber('')
-      setNewName('')
+      // setPersons(persons.concat(personObject))
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewNumber('')
+          setNewName('')
+        } )
     }
   }
 
