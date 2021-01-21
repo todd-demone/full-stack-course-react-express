@@ -2,6 +2,7 @@ import Filter from './components/Filter'
 import noteService from './services/persons'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -11,6 +12,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
+  const [ successMessage, setSuccessMessage] = useState(null)
 
   ////////////////////////
   // Functions
@@ -21,18 +23,21 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    const filteredPersons = persons.filter(person => person.name === newName)
-    if (filteredPersons.length > 0) {
+    const filteredPerson = persons.find(person => person.name === newName)
+    if (filteredPerson) {
       const message = `${newName} is already added to phonebook, replace the old number with a new one?`
       const confirmedDelete = window.confirm(message)
       if(confirmedDelete) {
         noteService.
-          updatePerson(personObject, filteredPersons[0].id)
+          updatePerson(personObject, filteredPerson.id)
           .then(revisedPerson => {
-            const revisedPeople = persons.filter(person => person.name !== newName)
-            setPersons(revisedPeople.concat(revisedPerson))
+            setPersons(persons.map(person => person.id !== filteredPerson.id ? person : revisedPerson))
             setNewNumber('')
             setNewName('')
+            setSuccessMessage(`${revisedPerson.name} was updated`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
           })
       }
     } else {
@@ -42,6 +47,10 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewNumber('')
           setNewName('')
+          setSuccessMessage(`${returnedPerson.name} was added`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
         } )
     }
   }
@@ -93,6 +102,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={successMessage} />
       <Filter newSearch={newSearch} handleSearchChange={handleSearchChange} />
       <h3>add a new</h3>
       <PersonForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} />
