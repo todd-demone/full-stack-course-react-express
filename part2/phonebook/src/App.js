@@ -12,15 +12,29 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
 
+  ////////////////////////
   // Functions
+  ///////////////////////
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = { 
       name: newName,
       number: newNumber
     }
-    if (persons.filter(person => person.name === newName).length > 0) {
-      alert(`${newName} is already added to phonebook`)
+    const filteredPersons = persons.filter(person => person.name === newName)
+    if (filteredPersons.length > 0) {
+      const message = `${newName} is already added to phonebook, replace the old number with a new one?`
+      const confirmedDelete = window.confirm(message)
+      if(confirmedDelete) {
+        noteService.
+          updatePerson(personObject, filteredPersons[0].id)
+          .then(revisedPerson => {
+            const revisedPeople = persons.filter(person => person.name !== newName)
+            setPersons(revisedPeople.concat(revisedPerson))
+            setNewNumber('')
+            setNewName('')
+          })
+      }
     } else {
       noteService
         .create(personObject)
@@ -46,7 +60,10 @@ const App = () => {
     ? persons
     : persons.filter( (person) => person.name.toLowerCase().includes(newSearch.toLowerCase()))
 
+  ////////////////////////// 
   // Event Handlers
+  //////////////////////////
+
   const handleDeleteRequest = (personToDelete) => {
     const message = `Delete ${personToDelete.name}?`
     const confirmedDelete = window.confirm(message)
