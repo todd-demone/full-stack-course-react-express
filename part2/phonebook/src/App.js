@@ -13,6 +13,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
   const [ successMessage, setSuccessMessage] = useState(null)
+  const [ errorMessage, setErrorMessage ] = useState(null)
 
   ////////////////////////
   // Functions
@@ -38,6 +39,13 @@ const App = () => {
             setTimeout(() => {
               setSuccessMessage(null)
             }, 5000)
+          })
+          .catch(error => {
+            setErrorMessage(`Information of ${filteredPerson.name} has already been removed from server`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+            setPersons(persons.filter(person => person.id !== filteredPerson.id))
           })
       }
     } else {
@@ -102,7 +110,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={successMessage} />
+      <Notification message={successMessage} color="green" />
+      <Notification message={errorMessage} color="red" /> 
       <Filter newSearch={newSearch} handleSearchChange={handleSearchChange} />
       <h3>add a new</h3>
       <PersonForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addPerson={addPerson} />
