@@ -1,0 +1,163 @@
+/**
+ * Scaffolding body.page article.page
+ */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font: normal normal normal 1rem/1.6 -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 1rem; }
+
+body {
+  color: #404040;
+  background: white;
+  font-size: 1rem; }
+
+.page article.page p,
+.page article.page ol,
+.page article.page ul,
+.page article.page dl,
+.page article.page table {
+  margin: 0 0 1.5rem 0; }
+
+.page article.page ul li ul {
+  margin-bottom: 0; }
+
+.page article.page ol li ol {
+  margin-bottom: 0; }
+
+.page article.page h1,
+.page article.page h2,
+.page article.page h3,
+.page article.page h4,
+.page article.page h5 {
+  margin: 1.5rem 0;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif;
+  line-height: 1.2;
+  color: #404040; }
+  h1:not(:first-child),
+  h2:not(:first-child),
+  h3:not(:first-child),
+  h4:not(:first-child),
+  h5:not(:first-child) {
+    margin: 1.5rem 0; }
+
+.page article.page h1:not(:first-child),
+.page article.page h2:not(:first-child),
+.page article.page h3:not(:first-child) {
+  margin-top: 2rem; }
+
+.page article.page h1 {
+  font-size: 1.75rem; }
+
+.page article.page h2 {
+  font-size: 1.5rem; }
+
+.page article.page h3 {
+  font-size: 1.25rem; }
+
+.page article.page h4 {
+  font-size: 1.1rem; }
+
+.page article.page h5 {
+  font-size: 1rem; }
+
+@media (min-width: 600px) {
+  .page article.page h1:not(:first-child),
+  .page article.page h2:not(:first-child),
+  .page article.page h3:not(:first-child) {
+    margin-top: 2.5rem; }
+  .page article.page h1 {
+    font-size: 2.25rem; }
+  .page article.page h2 {
+    font-size: 2rem; }
+  .page article.page h3 {
+    font-size: 1.75rem; }
+  .page article.page h4 {
+    font-size: 1.5rem; }
+  .page article.page h5 {
+    font-size: 1.25rem; } }
+
+.page article.page a {
+  color: #0366ee;
+  text-decoration: none; }
+  .page article.page a:hover, a:active, a:focus {
+    color: #0246a2;
+    text-decoration: underline; }
+
+
+
+
+    .single article.post p,
+.single article.post ol,
+.single article.post ul,
+.single article.post dl,
+.single article.post table {
+  margin: 0 0 1.75rem 0; }
+
+.single article.post ul li ul {
+  margin-bottom: 0; }
+
+.single article.post ol li ol {
+  margin-bottom: 0; }
+
+.single article.post h1,
+.single article.post h2,
+.single article.post h3,
+.single article.post h4,
+.single article.post h5 {
+  margin: 1.5rem 0;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, sans-serif;
+  line-height: 1.2;
+  color: #404040; }
+  h1:not(:first-child),
+  h2:not(:first-child),
+  h3:not(:first-child),
+  h4:not(:first-child),
+  h5:not(:first-child) {
+    margin: 1.5rem 0; }
+
+.single article.post h1:not(:first-child),
+.single article.post h2:not(:first-child),
+.single article.post h3:not(:first-child) {
+  margin-top: 2rem; }
+
+.single article.post h1 {
+  font-size: 1.75rem; }
+
+.single article.post h2 {
+  font-size: 1.5rem; }
+
+.single article.post h3 {
+  font-size: 1.25rem; }
+
+.single article.post h4 {
+  font-size: 1.1rem; }
+
+.single article.post h5 {
+  font-size: 1rem; }
+
+@media (min-width: 600px) {
+  .single article.post h1:not(:first-child),
+  .single article.post h2:not(:first-child),
+  .single article.post h3:not(:first-child) {
+    margin-top: 2.5rem; }
+  .single article.post h1 {
+    font-size: 2.25rem; }
+  .single article.post h2 {
+    font-size: 2rem; }
+  .single article.post h3 {
+    font-size: 1.75rem; }
+  .single article.post h4 {
+    font-size: 1.5rem; }
+  .single article.post h5 {
+    font-size: 1.25rem; } }
+
+.single article.post a {
+  color: #0366ee;
+  text-decoration: none; }
+  .single article.post a:hover, a:active, a:focus {
+    color: #0246a2;
+    text-decoration: underline; }
+
